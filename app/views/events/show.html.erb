@@ -1,0 +1,18 @@
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+  <h1 class="display-4">View Event</h1>
+  <p class="lead">View the event. Enjoy!</p>
+</div>
+
+<br>
+
+<div class="container">
+<div class="card">
+  <h5 class="card-header">
+    <a> <%= @event.title %> </a>
+  </h5>
+    <div class="card-body">
+      <h5 class="card-title"> <%= @event.administrator.first_name %> <%= @event.administrator.last_name %> </h5>
+      <p class="card-text"> From <%= @event.start_date %></p>
+
+</div>
+</div>
