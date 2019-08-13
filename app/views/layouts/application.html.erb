@@ -39,7 +39,7 @@
         </div>
         <% else %>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a <%= link_to "Profil", new_user_session_path, :class => "dropdown-item" %> </a>
+          <a <%= link_to "Profil", user_path(current_user.id), :class => "dropdown-item" %> </a>
           <a <%= link_to "Sign out", destroy_user_session_path, :class => "dropdown-item", method: :delete %> </a>
         </div>
         <% end %>
