@@ -6,6 +6,7 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.find(params[:id])
+    @event_end = @event.start_date + (@event.duration * 60)
   end
 
   def create

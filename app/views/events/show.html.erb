@@ -12,7 +12,23 @@
   </h5>
     <div class="card-body">
       <h5 class="card-title"> <%= @event.administrator.first_name %> <%= @event.administrator.last_name %> </h5>
+      <p class="card-text"> <%= @event.administrator.email %></p>
+
+      <p class="card-text"> <%= @event.users.count %> participants.</p>
+
       <p class="card-text"> <%= @event.start_date.to_formatted_s(:long) %></p>
+      <p class="card-text"> <%= @event_end.to_formatted_s(:long) %></p>
+
+      <p class="card-text"> <%= @event.location %></p>
+      <p class="card-text"> <%= @event.price %> €</p>
+
+      <div class="container bg-light border border-primary rounded">
+        <p><strong>Description:</strong></p>
+        <p><%= @event.description %></p>
+      </div>
+
+
+
 
 </div>
 </div>
