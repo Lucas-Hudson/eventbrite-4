@@ -25,10 +25,11 @@
       <div class="container bg-light border border-primary rounded">
         <p><strong>Description:</strong></p>
         <p><%= @event.description %></p>
+      </div><br>
+      <% unless current_user == @event.administrator || current_user == @event.users %>
+      <div class="row justify-content-center">
+        <a class="btn btn-success btn-lg" <%= link_to "Join Event", new_event_attendance_path(@event.id) %></a>
       </div>
-
-
-
-
-</div>
+      <% end %>
+    </div>
 </div>

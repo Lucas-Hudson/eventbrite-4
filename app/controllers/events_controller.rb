@@ -1,5 +1,7 @@
 class EventsController < ApplicationController
 
+  before_action :authenticate_user, only: [:new]
+
   def index
     @events = Event.all
   end
@@ -7,6 +9,7 @@ class EventsController < ApplicationController
   def show
     @event = Event.find(params[:id])
     @event_end = @event.start_date + (@event.duration * 60)
+
   end
 
   def create
@@ -19,6 +22,22 @@ class EventsController < ApplicationController
       else
         render events_path
       end
+  end
+
+
+  private
+
+  def authenticate_user
+    unless current_user
+      flash[:danger] = "Please log in."
+      redirect_to new_user_session_path
+    end
+  end
+
+  def linked_to_event
+    if current_user == @event.users.find(current_user)
+    puts "TRUE " * 10 
+    end
   end
 
 end
