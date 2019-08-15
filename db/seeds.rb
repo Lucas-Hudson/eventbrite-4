@@ -17,7 +17,7 @@ end
 puts "Created 10 fake users."
 
 10.times do
-  Event.create(start_date: Faker::Date.forward(days: 120), duration: rand(60..1440), title: Faker::Lorem.sentence(word_count: 3), description: Faker::Lorem.sentence, price: rand(1..100), location: Faker::Address.full_address, administrator: User.all.sample)
+  Event.create(start_date: Faker::Date.forward(days: 120), duration: rand(60..1440), title: Faker::Music::RockBand.name, description: Faker::Lorem.paragraph(sentence_count: rand(4..12)), price: rand(1..100), location: Faker::Address.full_address, administrator: User.all.sample)
 end
 
 puts "Created 10 fake events."
