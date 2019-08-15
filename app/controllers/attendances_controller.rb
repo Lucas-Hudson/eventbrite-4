@@ -1,7 +1,9 @@
 class AttendancesController < ApplicationController
 
   def create
-
+    if current_user == nil
+      redirect_to root_path
+    end
     @event = Event.find(params[:format])
 
     Attendance.create(:user => current_user, :event => @event)

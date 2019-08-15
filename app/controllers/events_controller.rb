@@ -9,6 +9,10 @@ class EventsController < ApplicationController
   def show
     @event = Event.find(params[:id])
     @event_end = @event.start_date + (@event.duration * 60)
+
+    @admin = is_admin?
+    @attendee = is_attendee?
+
   end
 
   def create
@@ -33,9 +37,15 @@ class EventsController < ApplicationController
     end
   end
 
-  def linked_to_event
-    if current_user == @event.users.find(current_user)
-    puts "TRUE " * 10
+  def is_admin?
+    if current_user == @event.administrator
+      true
+    end
+  end
+
+  def is_attendee?
+    if @event.users.include?(current_user)
+      true
     end
   end
 

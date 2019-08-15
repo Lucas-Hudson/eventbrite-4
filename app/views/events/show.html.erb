@@ -29,7 +29,7 @@
         <p><%= @event.description %></p>
       </div><br>
 
-      <% unless current_user == @event.administrator || current_user == @event.users.where(:id => current_user.id).first %>
+      <% unless @admin || @attendee || current_user == nil %>
         <div class="row justify-content-center">
 
           <%= form_tag attendances_path(@event) do %>
@@ -39,9 +39,9 @@
                   <p><%= flash[:error] %></p>
                 </div>
               <% end %>
-              <label class="amount">
-                <span> Amount: <%= @event.price %>.00€  </span>
-              </label>
+            <label class="amount">
+              <span> Amount: <%= @event.price %>.00€  </span>
+            </label>
             </article>
 
             <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
@@ -53,5 +53,10 @@
 
         </div>
       <% end %>
-    </div>
+    <% if current_user == nil %>
+      <div class="text-center">
+        <a class="btn btn-outline-primary btn-lg" <%= link_to "Login to join", new_user_session_path %></a>
+      </div>
+    <% end %>
+  </div>
 </div>
