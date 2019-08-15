@@ -15,21 +15,43 @@
       <p class="card-text"> <%= @event.administrator.email %></p>
 
       <p class="card-text"> <%= @event.users.count %> participants.</p>
+      <% @event.users.each do |u| %>
+      <li> <%= u.email %>
+        <% end %> </li><br>
 
       <p class="card-text"> <%= @event.start_date.to_formatted_s(:long) %></p>
       <p class="card-text"> <%= @event_end.to_formatted_s(:long) %></p>
 
       <p class="card-text"> <%= @event.location %></p>
-      <p class="card-text"> <%= @event.price %> €</p>
 
       <div class="container bg-light border border-primary rounded">
         <p><strong>Description:</strong></p>
         <p><%= @event.description %></p>
       </div><br>
-      <% unless current_user == @event.administrator || current_user == @event.users %>
-      <div class="row justify-content-center">
-        <a class="btn btn-success btn-lg" <%= link_to "Join Event", new_event_attendance_path(@event.id) %></a>
-      </div>
+
+      <% unless current_user == @event.administrator || current_user == @event.users.where(:id => current_user.id).first %>
+        <div class="row justify-content-center">
+
+          <%= form_tag attendances_path(@event) do %>
+            <article>
+              <% if flash[:error].present? %>
+                <div id="error_explanation">
+                  <p><%= flash[:error] %></p>
+                </div>
+              <% end %>
+              <label class="amount">
+                <span> Amount: <%= @event.price %>.00€  </span>
+              </label>
+            </article>
+
+            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                    data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                    data-description="Pay and join event."
+                    data-amount="<%= @event.price * 100 %>"
+                    data-locale="auto"></script>
+          <% end %>
+
+        </div>
       <% end %>
     </div>
 </div>
